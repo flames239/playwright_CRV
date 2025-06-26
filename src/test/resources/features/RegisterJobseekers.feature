@@ -1,0 +1,16 @@
+Feature: careerviet.vn - Kiểm tra chức năng đăng ký bên Jobseekers
+
+
+  Scenario Outline: Kiểm tra data nhập đầu vào
+    Given tôi truy cập vào trang chủ careerviet
+    When tôi bấm nút đăng nhập và ấn nút đăng ký
+    And tôi nhập Tên <Ten>
+    And tôi nhập họ và tên lót "<Ho_va_Ten>"
+    And tôi nhập email "<email>"
+    And tôi nhập mật khẩu "<password>" và xác nhận mật khẩu "<confirmpassword>"
+    And tôi ấn nút đăng ký
+    Then kiem tra tôi đã đăng ký thành công
+
+    Examples:
+      |  Ten       | Ho_va_Ten    | email                     | password | confirmpassword
+      |  Test      |  Full name   | test_fullname@yopmail.com | Abc123   | Abc123
