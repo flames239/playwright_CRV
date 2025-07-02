@@ -1,3 +1,4 @@
+@test-suite @searchJob
 Feature: careerviet.vn - Box search jobs ở trang chủ người tìm việc
 
   Background: Pre Conditions

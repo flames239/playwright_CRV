@@ -55,18 +55,32 @@ public class RegisterJsk_Steps {
         locator.fill(passWord);
         Locator locator2 = browserManager.page.locator("#confirm_password");
         locator2.fill(confirmPassword);
-        // field nay bat luc nen phai hard value
-       // browserManager.page.evaluate("document.querySelector('#confirm_password').value = 'Abc123'");
+
+    }
+
+    @And("tôi tick checkbox điều khoản")
+    public void tôi_Tick_Checkbox_Điều_Khoản() {
+        //browserManager.page.pause();
+        // Locate the checkbox using label text
+//        Locator checkbox = browserManager.page.locator("#chkAgree");
+//        if (!checkbox.isChecked()) {
+//            checkbox.check();
+//        }
+        browserManager.page.locator("label[for='chkAgree']").click();
+
     }
 
     @And("tôi ấn nút đăng ký")
     public void tôi_Ấn_Nút_Đăng_Ký() {
+        browserManager.page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng ký")).click();
+        browserManager.page.waitForTimeout(5_000);
     }
 
     @Then("kiem tra tôi đã đăng ký thành công")
     public void kiem_tra_tôi_đã_đăng_ký_thành_công() {
         Page.WaitForSelectorOptions options = new Page.WaitForSelectorOptions().setTimeout(10000);
-
         browserManager.page.waitForSelector("//form[@id='frmRegister']//button", options);
     }
+
+
 }
