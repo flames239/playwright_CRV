@@ -60,14 +60,7 @@ public class RegisterJsk_Steps {
 
     @And("tôi tick checkbox điều khoản")
     public void tôi_Tick_Checkbox_Điều_Khoản() {
-        //browserManager.page.pause();
-        // Locate the checkbox using label text
-//        Locator checkbox = browserManager.page.locator("#chkAgree");
-//        if (!checkbox.isChecked()) {
-//            checkbox.check();
-//        }
         browserManager.page.locator("label[for='chkAgree']").click();
-
     }
 
     @And("tôi ấn nút đăng ký")

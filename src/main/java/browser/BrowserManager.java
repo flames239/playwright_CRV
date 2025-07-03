@@ -10,6 +10,13 @@ public class BrowserManager {
     public BrowserContext browserContext; // duoc dung de cach biet browser session
     public Browser browser;
 
+    public byte[] takeScreenShot() {
+        if(page != null) {
+            return page.screenshot();
+        }
+        return new byte[0];
+    }
+
     public void setUp() {
         // lay viewport size cua man hinh
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
