@@ -14,7 +14,7 @@ Feature: Careerviet.vn - JSK login
       | email               | password |
       | haha@yopmail.com    | Abc123   |
 
-  @smoke @ignore
+  @smoke
   Scenario Outline: Kiểm tra trường hợp đăng nhập thất bại
     And tôi nhập tài khoản email sai "<email>"
     And tôi nhập mật khẩu sai "<password>"

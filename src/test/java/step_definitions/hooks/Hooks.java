@@ -26,7 +26,6 @@ public class Hooks {
     @Before
     public void setup() {
         System.out.println("Before test...");
-
         browserManager.setUp();
     }
 
