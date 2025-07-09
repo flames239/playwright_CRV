@@ -22,57 +22,57 @@ public class RegisterJsk_Steps {
     // Scenario outline
     @Given("tôi truy cập vào trang chủ careerviet")
     public void tôi_truy_cập_vào_trang_chủ_careerviet() {
-        browserManager.page.navigate("https://www.careerviet.vn");
+        browserManager.getPage().navigate("https://www.careerviet.vn");
     }
 
     @When("tôi bấm nút đăng nhập và ấn nút đăng ký")
     public void tôi_bấm_nút_đăng_nhập_và_ấn_nút_đăng_ký() {
-        browserManager.page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng nhập")).first().click();
-        browserManager.page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Đăng ký").setExact(true)).click();
+        browserManager.getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng nhập")).first().click();
+        browserManager.getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Đăng ký").setExact(true)).click();
     }
 
     @And("tôi nhập Tên {word}")
     public void tôi_nhập_tên(String Ten) {
-        Locator locator = browserManager.page.locator("#firstname");
+        Locator locator = browserManager.getPage().locator("#firstname");
         locator.fill(Ten);
     }
 
     @And("tôi nhập họ và tên lót {string}")
     public void tôi_nhập_họ_và_tên_lót(String Ho_va_ten_lot) {
-        Locator locator = browserManager.page.locator("#lastname");
+        Locator locator = browserManager.getPage().locator("#lastname");
         locator.fill(Ho_va_ten_lot);
     }
 
     @And("tôi nhập email {string}")
     public void tôi_nhập_email(String emailAddress) {
-        Locator locator = browserManager.page.locator("#email");
+        Locator locator = browserManager.getPage().locator("#email");
         locator.fill(emailAddress);
     }
 
     @And("tôi nhập mật khẩu {string} và xác nhận mật khẩu {string}")
     public void tôi_nhập_mật_khẩu_và_xác_nhận_mật_khẩu(String passWord, String confirmPassword) {
-        Locator locator = browserManager.page.locator("#password");
+        Locator locator = browserManager.getPage().locator("#password");
         locator.fill(passWord);
-        Locator locator2 = browserManager.page.locator("#confirm_password");
+        Locator locator2 = browserManager.getPage().locator("#confirm_password");
         locator2.fill(confirmPassword);
 
     }
 
     @And("tôi tick checkbox điều khoản")
     public void tôi_Tick_Checkbox_Điều_Khoản() {
-        browserManager.page.locator("label[for='chkAgree']").click();
+        browserManager.getPage().locator("label[for='chkAgree']").click();
     }
 
     @And("tôi ấn nút đăng ký")
     public void tôi_Ấn_Nút_Đăng_Ký() {
-        browserManager.page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng ký")).click();
-        browserManager.page.waitForTimeout(5_000);
+        browserManager.getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng ký")).click();
+        browserManager.getPage().waitForTimeout(5_000);
     }
 
     @Then("kiem tra tôi đã đăng ký thành công")
     public void kiem_tra_tôi_đã_đăng_ký_thành_công() {
         Page.WaitForSelectorOptions options = new Page.WaitForSelectorOptions().setTimeout(10000);
-        browserManager.page.waitForSelector("//form[@id='frmRegister']//button", options);
+        browserManager.getPage().waitForSelector("//form[@id='frmRegister']//button", options);
     }
 
 

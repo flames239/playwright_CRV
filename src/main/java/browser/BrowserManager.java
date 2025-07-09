@@ -8,16 +8,20 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Path;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BrowserManager {
-    public Playwright playwright; // duoc dung de khoi tao chromium, firefox browser
-    public Page page; // mo single tab hay window trong browser
-    public BrowserContext browserContext; // duoc dung de cach biet browser session
-    public Browser browser;
+    /*
+     * ThreadLocal giống như 1 locker cho mỗi thread, mỗi locker không chia sẻ dữ liệu với các thread khác
+     * Suy nghĩ mỗi thread như 1 công nhân độc lập trong nhà máy, mỗi worker có rieng 1 toolbox (ThreadLocal)
+     * */
+    private static final ThreadLocal<Playwright> playwright = new ThreadLocal<>(); // duoc dung de khoi tao chromium, firefox browser
+    private static final ThreadLocal<Browser> browser = new ThreadLocal<>(); // đối chiếu với browser khởi tạo
+    private static final ThreadLocal<BrowserContext> browserContext = new ThreadLocal<>(); // duoc dung de cach biet browser session
+    private static final ThreadLocal<Page> page = new ThreadLocal<>(); // mo single tab hay window trong browser
+
     public Properties properties;
     private static final Logger logger = Logger.getLogger(BrowserManager.class.getName());
 
@@ -36,9 +40,21 @@ public class BrowserManager {
         }
     }
 
+    public Page getPage() {
+        return page.get();
+    }
+
+    public void setPage(Page newPage) {
+        page.set(newPage);
+    }
+
+    public BrowserContext getBrowserContext() {
+        return browserContext.get();
+    }
+
     public byte[] takeScreenShot() {
-        if (page != null) {
-            return page.screenshot();
+        if (page.get() != null) {
+            return page.get().screenshot();
         }
         return new byte[0];
     }
@@ -49,33 +65,42 @@ public class BrowserManager {
         int width = (int) screenSize.getWidth();
         int height = (int) screenSize.getHeight();
 
-        playwright = Playwright.create();
-        String browserType = properties.getProperty("browser", "chromium");
-        switch (browserType.toLowerCase()) {
-            case "chromium":
-                browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-                break;
-            case "firefox":
-                browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false).
-                        setArgs(java.util.List.of("--deny-permission-prompts")));
-                break;
-            default:
-                logger.warning("Khong ho tro browser type: " + browserType + ". Default browser is chromium");
-                browser = playwright.chromium().launch
-                        (new BrowserType.LaunchOptions().setHeadless(false).
-                                setArgs(java.util.List.of("--deny-permission-prompts")));
-                break;
+        try {
+            playwright.set(Playwright.create());
+            String browserType = properties.getProperty("browser", "chromium");
+            switch (browserType.toLowerCase()) {
+                case "chromium":
+                    browser.set(playwright.get().chromium().launch(new BrowserType.LaunchOptions().setHeadless(false)));
+                    break;
+                case "firefox":
+                    browser.set(playwright.get().firefox().launch(new BrowserType.LaunchOptions().setHeadless(false).
+                            setArgs(java.util.List.of("--deny-permission-prompts"))));
+                    break;
+                default:
+                    logger.warning("Khong ho tro browser type: " + browserType + ". Default browser is chromium");
+                    browser.set(playwright.get().chromium().launch
+                            (new BrowserType.LaunchOptions().setHeadless(false).
+                                    setArgs(java.util.List.of("--deny-permission-prompts"))));
+                    break;
+            }
+            // browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+            browserContext.set(browser.get().newContext(new Browser.NewContextOptions().setViewportSize(width, height)));
+            page.set(browserContext.get().newPage());
+            logger.info("Setup browser successfully");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to setup Playwrignt!", e);
         }
-       // browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-        browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize(width, height));
-        page = browserContext.newPage();
-        logger.info("Setup browser successfully");
     }
 
     public void tearDown() {
-        if (page != null) page.close();
-        if (browser != null) browser.close();
-        if (playwright != null) playwright.close();
-        logger.info("Tear down browser successfully");
+        try {
+            if (playwright.get() != null) playwright.get().close();
+            if (page.get() != null) page.get().close();
+            if (browser.get() != null) browser.get().close();
+            if (browserContext.get() != null) browserContext.get().close();
+            logger.info("Tear down browser successfully");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to close browser!!!", e);
+        }
     }
 }
