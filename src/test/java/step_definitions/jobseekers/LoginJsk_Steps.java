@@ -4,6 +4,7 @@ import browser.BrowserManager;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import context.Context;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,9 +13,11 @@ import net.datafaker.Faker;
 public class LoginJsk_Steps {
     public BrowserManager browserManager;
     private final Faker faker = new Faker();
+    private final Context context;
 
-    public LoginJsk_Steps(BrowserManager browserManager) {
+    public LoginJsk_Steps(BrowserManager browserManager, Context context) {
         this.browserManager = browserManager;
+        this.context = context;
     }
 
     // scenario về đăng nhập thành công
@@ -64,6 +67,22 @@ public class LoginJsk_Steps {
 
     @Then("đăng nhập không thành công")
     public void Đăng_Nhập_Không_Thành_Công() {
+
+    }
+
+    @And("tôi nhập tài khoản email ngẫu nhiên")
+    public void tôi_Nhập_Tài_Khoản_Email_Ngẫu_Nhiên() {
+        String email = faker.internet().emailAddress();
+        context.setRandomEmail(email); // chứa trong context
+        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Email hoặc Tên đăng nhập")).fill(email);
+
+    }
+
+    @And("tôi nhập mật khẩu ngẫu nhiên")
+    public void tôi_Nhập_Mật_Khẩu_Ngẫu_Nhiên() {
+        String passwordRandom = faker.internet().password();
+        context.setRandomEmail(passwordRandom);
+        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Mật khẩu")).fill(passwordRandom);
 
     }
 }

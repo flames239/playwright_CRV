@@ -28,8 +28,8 @@ public class BrowserManager {
     public BrowserManager() {
         properties = new Properties();
 
-        // tao mot duong dan de config.properties file. neu "config.path" chua duoc set,
-        // mac dinh file se duoc chua trong duong dan "src/main/resources/config.properties"
+        // Tạo một đường dẫn để config.properties file. nếu "config.path" chưa được set,
+        // mặc định file sẽ được chứa trong đường dẫn "src/main/resources/config.properties"
         Path configPath = Paths.get(System.getProperty("config.path",
                 Paths.get(System.getProperty("user.dir"),
                         "src", "main", "resources", "config.properties").toString()));
@@ -86,6 +86,12 @@ public class BrowserManager {
             // browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
             browserContext.set(browser.get().newContext(new Browser.NewContextOptions().setViewportSize(width, height)));
             page.set(browserContext.get().newPage());
+
+            // Cài timeouts từ properties files hay dùng giá trị mặc định
+            int navigationTimeout = Integer.parseInt(properties.getProperty("navigation.timeout", "30000"));
+            int actionTimeout = Integer.parseInt(properties.getProperty("action.timeout", "15000"));
+            page.get().setDefaultNavigationTimeout(navigationTimeout);
+            page.get().setDefaultTimeout(actionTimeout);
             logger.info("Setup browser successfully");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Failed to setup Playwrignt!", e);
