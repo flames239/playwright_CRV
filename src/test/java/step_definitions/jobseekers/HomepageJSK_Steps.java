@@ -9,20 +9,23 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.datafaker.Faker;
+import pages.Jobseekers.HomePageJskPage;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class HomepageJSK_Steps {
     public BrowserManager browserManager;
+    private final HomePageJskPage homePageJSK;
     private final Faker faker = new Faker();
 
-    public HomepageJSK_Steps(BrowserManager browserManager) {
+    public HomepageJSK_Steps(BrowserManager browserManager, HomePageJskPage homePageJSK) {
         this.browserManager = browserManager;
+        this.homePageJSK = homePageJSK;
     }
 
     @Given("Tôi truy cap vào web trang chủ cho người tìm việc")
     public void tôi_truy_cap_vào_web_trang_chủ_cho_người_tìm_việc() {
-        browserManager.getPage().navigate("https://www.careerviet.vn");
+        homePageJSK.navigateToHomePage();
     }
 
     @When("Tôi nhập tiêu đề job hợp lý de tìm jobs \\(như nhân viên kinh doanh, devops engineers, automation tester, ..)")
@@ -42,7 +45,7 @@ public class HomepageJSK_Steps {
     public void tôi_ấn_nút_tìm_việc_ngay() {
         Page.WaitForSelectorOptions options = new Page.WaitForSelectorOptions().setTimeout(10000);
         browserManager.getPage().waitForSelector("//form[@onsubmit='return false;']//button", options);
-        browserManager.getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("TÌM VIỆC NGAY")).click();
+        homePageJSK.clickSearchJobButton();
     }
 
 
