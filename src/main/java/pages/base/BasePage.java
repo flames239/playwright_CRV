@@ -23,7 +23,7 @@ public class BasePage {
     }
 
     public void waitAndClickByRole(String role, String nameElement) {
-        Locator element = browserManager.getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement));
+        Locator element = browserManager.getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement).setExact(true));
         element.click();
     }
 

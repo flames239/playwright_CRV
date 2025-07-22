@@ -1,8 +1,6 @@
 package step_definitions.jobseekers;
 
-import browser.BrowserManager;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
+import context.Context;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,17 +8,15 @@ import io.cucumber.java.en.When;
 import net.datafaker.Faker;
 import pages.Jobseekers.HomePageJskPage;
 import pages.Jobseekers.RegisterJskPage;
-import pages.base.BasePage;
 
-public class RegisterJsk_Steps extends BasePage {
-
-    public BasePage basePage;
+public class RegisterJsk_Steps {
     protected final HomePageJskPage homePageJskPage;
     protected final RegisterJskPage registerJskPage;
+    public final Context context;
     private final Faker faker = new Faker();
 
-    public RegisterJsk_Steps(BasePage basePage, HomePageJskPage homePageJskPage, RegisterJskPage registerJskPage) {
-        this.basePage = basePage;
+    public RegisterJsk_Steps(HomePageJskPage homePageJskPage, RegisterJskPage registerJskPage, Context context) {
+        this.context = context;
         this.homePageJskPage = homePageJskPage;
         this.registerJskPage = registerJskPage;
     }
@@ -33,29 +29,28 @@ public class RegisterJsk_Steps extends BasePage {
 
     @When("tôi bấm nút đăng nhập và ấn nút đăng ký")
     public void tôi_bấm_nút_đăng_nhập_và_ấn_nút_đăng_ký() {
-        getBrowserManager().getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng nhập")).first().click();
-        getBrowserManager().getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Đăng ký").setExact(true)).click();
+        registerJskPage.clickLinkTextRegisterJsk();
     }
 
     @And("tôi nhập Tên {word}")
     public void tôi_nhập_tên(String Ten) {
-        registerJskPage.fillField("#firstname", Ten);
+        registerJskPage.inputFirstName(Ten);
     }
 
     @And("tôi nhập họ và tên lót {string}")
     public void tôi_nhập_họ_và_tên_lót(String Ho_va_ten_lot) {
-        registerJskPage.fillField("#lastname", Ho_va_ten_lot);
+        registerJskPage.inputLastName(Ho_va_ten_lot);
     }
 
     @And("tôi nhập email {string}")
     public void tôi_nhập_email(String emailAddress) {
-        registerJskPage.fillField("#email", emailAddress);
+        registerJskPage.inputEmail(emailAddress);
     }
 
     @And("tôi nhập mật khẩu {string} và xác nhận mật khẩu {string}")
     public void tôi_nhập_mật_khẩu_và_xác_nhận_mật_khẩu(String passWord, String confirmPassword) {
-        registerJskPage.fillField("#password", passWord);
-        registerJskPage.fillField("#confirm_password", confirmPassword);
+        registerJskPage.inputPassword(passWord);
+        registerJskPage.inputConfirmPassword(confirmPassword);
     }
 
     @And("tôi tick checkbox điều khoản")
@@ -66,35 +61,29 @@ public class RegisterJsk_Steps extends BasePage {
     @And("tôi ấn nút đăng ký")
     public void tôi_Ấn_Nút_Đăng_Ký() {
         registerJskPage.clickRegisterButton();
-        getBrowserManager().getPage().waitForTimeout(5_000);
     }
 
     @Then("kiểm tra tôi đã đăng ký thành công")
     public void kiểm_tra_tôi_đã_đăng_ký_thành_công() {
-        Page.WaitForSelectorOptions options = new Page.WaitForSelectorOptions().setTimeout(10000);
-        getBrowserManager().getPage().waitForSelector("//form[@id='frmRegister']//button", options);
+        registerJskPage.waitForTimeOutElement(10_000);
     }
-
 
     @And("tôi nhập Tên ngẫu nhiên")
     public void tôi_Nhập_Tên_Ngẫu_Nhiên() {
         String randomFirstName = faker.name().firstName();
         registerJskPage.inputFirstName(randomFirstName);
-        getBrowserManager().getPage().waitForTimeout(2_000);
     }
 
     @And("tôi nhập họ và tên lót ngẫu nhiên")
     public void tôi_Nhập_Họ_Và_Tên_Lót_Ngẫu_Nhiên() {
         String randomLastName = faker.name().lastName();
         registerJskPage.inputLastName(randomLastName);
-        getBrowserManager().getPage().waitForTimeout(2_000);
     }
 
     @And("tôi nhập email ngẫu nhiên")
     public void tôi_Nhập_Email_Ngẫu_Nhiên() {
         String randomEmailAddress = faker.internet().emailAddress();
         registerJskPage.inputEmail(randomEmailAddress);
-        getBrowserManager().getPage().waitForTimeout(2_000);
     }
 
 }

@@ -1,8 +1,10 @@
 package pages.Jobseekers;
 
 import browser.BrowserManager;
-import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Locator;
 import pages.base.BasePage;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class HomePageJskPage extends BasePage {
     public HomePageJskPage(BrowserManager browserManager) {
@@ -13,9 +15,21 @@ public class HomePageJskPage extends BasePage {
         navigate("https://www.careerviet.vn");
     }
 
+    public void inputSearchJob (String searchJob) {
+        fillField("#keyword", searchJob);
+        waitForTimeOutElement(1_000);
+    }
+
+
     public void clickSearchJobButton() {
-        Page.WaitForSelectorOptions options = new Page.WaitForSelectorOptions().setTimeout(10000);
-        getBrowserManager().getPage().waitForSelector("//form[@onsubmit='return false;']//button", options);
+        waitForTimeOutElement(2_000);
         waitAndClickByRole("BUTTON","TÌM VIỆC NGAY");
+    }
+
+    public void verifySearchJob() {
+        getBrowserManager().getPage().waitForSelector("//div[@class='box-title']");
+        Locator locator = getBrowserManager().getPage().locator("//div[@class='box-title']");
+        assertThat(locator).isVisible();
+        assertThat(locator).hasText("Việc làm được tìm kiếm nhiều nhất");
     }
 }

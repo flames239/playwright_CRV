@@ -8,24 +8,34 @@ public class RegisterJskPage extends BasePage {
         super(browserManager);
     }
 
+    public void clickLinkTextRegisterJsk() {
+        waitAndClickByRole("BUTTON","Đăng nhập");
+        waitAndClickByRole("LINK","Đăng ký");
+    }
+
     public void inputFirstName(String firstName) {
         fillField("#firstname" ,firstName);
+        waitForTimeOutElement(1_000);
     }
 
     public void inputLastName(String lastName) {
         fillField("#lastname", lastName);
+        waitForTimeOutElement(1_000);
     }
 
     public void inputEmail(String emailAddress) {
         fillField("#email", emailAddress);
+        waitForTimeOutElement(1_000);
     }
 
     public void inputPassword(String password) {
         fillField("#password", password);
+        waitForTimeOutElement(1_000);
     }
 
     public void inputConfirmPassword(String confirmPassword) {
         fillField("#confirm_password", confirmPassword);
+        waitForTimeOutElement(1_000);
     }
 
     public void clickAgreePolicyChkBox() {
@@ -34,5 +44,6 @@ public class RegisterJskPage extends BasePage {
 
     public void clickRegisterButton() {
         waitAndClickSelector("//div[@class='form-group form-submit']//button");
+        waitForTimeOutElement(3_000);
     }
 }

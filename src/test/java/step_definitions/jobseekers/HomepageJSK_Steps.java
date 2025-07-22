@@ -1,9 +1,5 @@
 package step_definitions.jobseekers;
 
-import browser.BrowserManager;
-import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,15 +7,11 @@ import io.cucumber.java.en.When;
 import net.datafaker.Faker;
 import pages.Jobseekers.HomePageJskPage;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
 public class HomepageJSK_Steps {
-    public BrowserManager browserManager;
     private final HomePageJskPage homePageJSK;
     private final Faker faker = new Faker();
 
-    public HomepageJSK_Steps(BrowserManager browserManager, HomePageJskPage homePageJSK) {
-        this.browserManager = browserManager;
+    public HomepageJSK_Steps(HomePageJskPage homePageJSK) {
         this.homePageJSK = homePageJSK;
     }
 
@@ -30,34 +22,27 @@ public class HomepageJSK_Steps {
 
     @When("Tôi nhập tiêu đề job hợp lý de tìm jobs \\(như nhân viên kinh doanh, devops engineers, automation tester, ..)")
     public void tôi_nhập_tiêu_đề_job_hợp_lý_de_tìm_jobs_như_nhân_viên_kinh_doanh_devops_engineers_automation_tester() {
-        browserManager.getPage().getByRole(AriaRole.SEARCHBOX, new Page.GetByRoleOptions().setName("Chức danh")).fill("Quality Control Engineer");
+        homePageJSK.inputSearchJob("Quality Control Engineer");
     }
 
 
     @When("tôi nhập tiêu đề job ngẫu nhiên")
     public void tôi_nhập_tiêu_đề_job_ngẫu_nhiên() {
         String randomTitleJob = faker.job().title();
-        browserManager.getPage().getByRole(AriaRole.SEARCHBOX, new Page.GetByRoleOptions().setName("Chức danh")).fill(randomTitleJob);
+        homePageJSK.inputSearchJob(randomTitleJob);
     }
 
 
     @And("Tôi ấn nút tìm việc ngay")
     public void tôi_ấn_nút_tìm_việc_ngay() {
-        Page.WaitForSelectorOptions options = new Page.WaitForSelectorOptions().setTimeout(10000);
-        browserManager.getPage().waitForSelector("//form[@onsubmit='return false;']//button", options);
         homePageJSK.clickSearchJobButton();
+        homePageJSK.waitForTimeOutElement(2_000);
     }
 
 
     @Then("Hệ thống di chuyển qua page tìm việc làm với dữ liệu jobs hiển thị")
     public void hệ_thống_di_chuyển_qua_page_tìm_việc_làm_với_dữ_liệu_jobs_hiển_thị() {
-        browserManager.getPage().waitForSelector("//div[@class='box-title']");
-
-        Locator locator = browserManager.getPage().locator("//div[@class='box-title']");
-        assertThat(locator).isVisible();
-        assertThat(locator).hasText("Việc làm được tìm kiếm nhiều nhất");
-
-        //getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Việc làm được tìm kiếm nhiều")).waitFor();
+        homePageJSK.verifySearchJob();
     }
 
 

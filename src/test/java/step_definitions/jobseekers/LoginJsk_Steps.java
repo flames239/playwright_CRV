@@ -9,39 +9,38 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.datafaker.Faker;
+import pages.Jobseekers.LoginJskPage;
+import pages.base.BasePage;
 
 public class LoginJsk_Steps {
-    public BrowserManager browserManager;
+    public LoginJskPage loginJskPage;
     private final Faker faker = new Faker();
     private final Context context;
 
-    public LoginJsk_Steps(BrowserManager browserManager, Context context) {
-        this.browserManager = browserManager;
+    public LoginJsk_Steps(Context context, LoginJskPage loginJskPage) {
         this.context = context;
+        this.loginJskPage = loginJskPage;
     }
 
     // scenario về đăng nhập thành công
     @When("khi tôi click linktext Đăng nhập")
     public void khi_tôi_click_linktext_đăng_nhập() {
-        browserManager.getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng nhập")).click();
+        loginJskPage.clickLinkTextLogin("BUTTON", "Đăng nhập");
     }
 
     @And("tôi nhập tài khoản email {string}")
     public void tôi_nhập_tài_khoản_email(String emailAddress) {
-        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Email hoặc Tên đăng nhập")).fill(emailAddress);
-        browserManager.getPage().waitForTimeout(1_000);
+        loginJskPage.inputEmail(emailAddress);
     }
 
     @And("tôi nhập mật khẩu {string}")
     public void tôi_nhập_mật_khẩu(String passWord) {
-        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Mật khẩu")).fill(passWord);
-        browserManager.getPage().waitForTimeout(1_000);
+        loginJskPage.inputPassword(passWord);
     }
 
     @And("tôi bấm nút đăng nhập")
     public void tôi_bấm_nút_đăng_nhập() {
-        browserManager.getPage().locator("#header_login").getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Đăng nhập")).click();
-        browserManager.getPage().waitForTimeout(1_000);
+        loginJskPage.clickBtnLogin("#header_login");
     }
 
     @Then("tôi sẽ đăng nhập thành công")
@@ -53,18 +52,15 @@ public class LoginJsk_Steps {
     // scenario về đăng nhập thất bại
     @And("tôi nhập tài khoản email sai {string}")
     public void tôi_Nhập_Tài_Khoản_Email_Sai(String emailAddress) {
-        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Email hoặc Tên đăng nhập")).fill(emailAddress);
-        browserManager.getPage().waitForTimeout(1_000);
+        loginJskPage.inputEmail(emailAddress);
     }
 
     @And("tôi nhập mật khẩu sai {string}")
     public void tôi_Nhập_Mật_Khẩu_Sai_Password(String passWord) {
-        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Mật khẩu")).fill(passWord);
-        browserManager.getPage().waitForTimeout(1_000);
+        loginJskPage.inputPassword(passWord);
     }
 
     // tận dụng lại step bấm nút đăng nhập ở scenario đăng nhập hợp lệ
-
     @Then("đăng nhập không thành công")
     public void Đăng_Nhập_Không_Thành_Công() {
 
@@ -72,17 +68,15 @@ public class LoginJsk_Steps {
 
     @And("tôi nhập tài khoản email ngẫu nhiên")
     public void tôi_Nhập_Tài_Khoản_Email_Ngẫu_Nhiên() {
-        String email = faker.internet().emailAddress();
-        context.setRandomEmail(email); // chứa trong context
-        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Email hoặc Tên đăng nhập")).fill(email);
-
+        String randomEmailAddress = faker.internet().emailAddress();
+        context.setRandomEmail(randomEmailAddress); // chứa trong context
+        loginJskPage.inputEmail(context.getRandomEmail());
     }
 
     @And("tôi nhập mật khẩu ngẫu nhiên")
     public void tôi_Nhập_Mật_Khẩu_Ngẫu_Nhiên() {
-        String passwordRandom = faker.internet().password();
-        context.setRandomEmail(passwordRandom);
-        browserManager.getPage().getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Mật khẩu")).fill(passwordRandom);
-
+        String randomPassword = faker.internet().password();
+        context.setRandomEmail(randomPassword);
+        loginJskPage.inputPassword(context.getRandomEmail());
     }
 }
