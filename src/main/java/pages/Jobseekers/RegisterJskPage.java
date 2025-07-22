@@ -33,6 +33,6 @@ public class RegisterJskPage extends BasePage {
     }
 
     public void clickRegisterButton() {
-        waitAndClickSelector("#register");
+        waitAndClickSelector("//div[@class='form-group form-submit']//button");
     }
 }

@@ -40,4 +40,8 @@ public class BasePage {
     public void fillField(String selector, String value) {
         getBrowserManager().getPage().locator(selector).fill(value);
     }
+
+    public void waitForTimeOutElement(double timeout) {
+        getBrowserManager().getPage().waitForTimeout(timeout);
+    }
 }

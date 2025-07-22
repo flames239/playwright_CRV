@@ -10,16 +10,17 @@ import io.cucumber.java.en.When;
 import net.datafaker.Faker;
 import pages.Jobseekers.HomePageJskPage;
 import pages.Jobseekers.RegisterJskPage;
+import pages.base.BasePage;
 
-public class RegisterJsk_Steps {
+public class RegisterJsk_Steps extends BasePage {
 
-    public BrowserManager browserManager;
+    public BasePage basePage;
     protected final HomePageJskPage homePageJskPage;
     protected final RegisterJskPage registerJskPage;
     private final Faker faker = new Faker();
 
-    public RegisterJsk_Steps(BrowserManager browserManager, HomePageJskPage homePageJskPage, RegisterJskPage registerJskPage) {
-        this.browserManager = browserManager;
+    public RegisterJsk_Steps(BasePage basePage, HomePageJskPage homePageJskPage, RegisterJskPage registerJskPage) {
+        this.basePage = basePage;
         this.homePageJskPage = homePageJskPage;
         this.registerJskPage = registerJskPage;
     }
@@ -32,8 +33,8 @@ public class RegisterJsk_Steps {
 
     @When("tôi bấm nút đăng nhập và ấn nút đăng ký")
     public void tôi_bấm_nút_đăng_nhập_và_ấn_nút_đăng_ký() {
-        browserManager.getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng nhập")).first().click();
-        browserManager.getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Đăng ký").setExact(true)).click();
+        getBrowserManager().getPage().getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Đăng nhập")).first().click();
+        getBrowserManager().getPage().getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Đăng ký").setExact(true)).click();
     }
 
     @And("tôi nhập Tên {word}")
@@ -65,29 +66,35 @@ public class RegisterJsk_Steps {
     @And("tôi ấn nút đăng ký")
     public void tôi_Ấn_Nút_Đăng_Ký() {
         registerJskPage.clickRegisterButton();
-        browserManager.getPage().waitForTimeout(5_000);
+        getBrowserManager().getPage().waitForTimeout(5_000);
     }
 
     @Then("kiểm tra tôi đã đăng ký thành công")
     public void kiểm_tra_tôi_đã_đăng_ký_thành_công() {
         Page.WaitForSelectorOptions options = new Page.WaitForSelectorOptions().setTimeout(10000);
-        browserManager.getPage().waitForSelector("//form[@id='frmRegister']//button", options);
+        getBrowserManager().getPage().waitForSelector("//form[@id='frmRegister']//button", options);
     }
 
 
     @And("tôi nhập Tên ngẫu nhiên")
     public void tôi_Nhập_Tên_Ngẫu_Nhiên() {
-
+        String randomFirstName = faker.name().firstName();
+        registerJskPage.inputFirstName(randomFirstName);
+        getBrowserManager().getPage().waitForTimeout(2_000);
     }
 
     @And("tôi nhập họ và tên lót ngẫu nhiên")
     public void tôi_Nhập_Họ_Và_Tên_Lót_Ngẫu_Nhiên() {
-
+        String randomLastName = faker.name().lastName();
+        registerJskPage.inputLastName(randomLastName);
+        getBrowserManager().getPage().waitForTimeout(2_000);
     }
 
     @And("tôi nhập email ngẫu nhiên")
     public void tôi_Nhập_Email_Ngẫu_Nhiên() {
-
+        String randomEmailAddress = faker.internet().emailAddress();
+        registerJskPage.inputEmail(randomEmailAddress);
+        getBrowserManager().getPage().waitForTimeout(2_000);
     }
 
 }

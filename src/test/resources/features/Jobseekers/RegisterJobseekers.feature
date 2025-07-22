@@ -5,7 +5,7 @@ Feature: careerviet.vn - Kiểm tra chức năng đăng ký bên Jobseekers
     Given tôi truy cập vào trang chủ careerviet
     When tôi bấm nút đăng nhập và ấn nút đăng ký
 
-  Scenario: Kiểm tra data nhập đầu vào ngẫu nhiên
+  Scenario Outline: Kiểm tra data nhập đầu vào ngẫu nhiên
     And tôi nhập Tên ngẫu nhiên
     And tôi nhập họ và tên lót ngẫu nhiên
     And tôi nhập email ngẫu nhiên
@@ -13,6 +13,9 @@ Feature: careerviet.vn - Kiểm tra chức năng đăng ký bên Jobseekers
     And tôi tick checkbox điều khoản
     And tôi ấn nút đăng ký
     Then kiểm tra tôi đã đăng ký thành công
+    Examples:
+      | password | confirmpassword |
+      | Abc123   | Abc123          |
 
   Scenario Outline: Kiểm tra data nhập đầu vào
     And tôi nhập Tên <Ten>
@@ -22,7 +25,6 @@ Feature: careerviet.vn - Kiểm tra chức năng đăng ký bên Jobseekers
     And tôi tick checkbox điều khoản
     And tôi ấn nút đăng ký
     Then kiểm tra tôi đã đăng ký thành công
-
     Examples:
       | Ten  | Ho_va_Ten | email                     | password | confirmpassword |
       | Test | Full name | test_fullname@yopmail.com | Abc123   | Abc123          |
