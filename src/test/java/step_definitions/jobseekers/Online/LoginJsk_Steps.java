@@ -1,16 +1,11 @@
-package step_definitions.jobseekers;
+package step_definitions.jobseekers.Online;
 
-import browser.BrowserManager;
-import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
 import context.Context;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.datafaker.Faker;
-import pages.Jobseekers.LoginJskPage;
-import pages.base.BasePage;
+import pages.Jobseekers.Online.LoginJskPage;
 
 public class LoginJsk_Steps {
     public LoginJskPage loginJskPage;

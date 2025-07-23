@@ -1,10 +1,12 @@
 package pages.base;
 
 import browser.BrowserManager;
-import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
-import com.microsoft.playwright.options.WaitForSelectorState;
+import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.*;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class BasePage {
     private final BrowserManager browserManager;
@@ -23,13 +25,23 @@ public class BasePage {
     }
 
     public void waitAndClickByRole(String role, String nameElement) {
-        Locator element = browserManager.getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement).setExact(true));
+        Locator element =  getBrowserManager().getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement).setExact(true));
+        element.click();
+    }
+
+    public void waitAndClickByRoleFirst(String role, String nameElement) {
+        Locator element =  getBrowserManager().getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement).setExact(true)).first();
+        element.click();
+    }
+
+    public void waitAndClickByRoleNth(String role, String nameElement, int index) {
+        Locator element =  getBrowserManager().getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement).setExact(true)).nth(index);
         element.click();
     }
 
     public void waitAndClickSelector(String selector) {
-        browserManager.getPage().waitForSelector(selector, new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
-        browserManager.getPage().click(selector);
+        getBrowserManager().getPage().waitForSelector(selector, new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
+        getBrowserManager().getPage().click(selector);
     }
 
     public void waitAndClick(Locator locator) {
@@ -39,6 +51,29 @@ public class BasePage {
 
     public void fillField(String selector, String value) {
         getBrowserManager().getPage().locator(selector).fill(value);
+    }
+
+    public void waitAndHover(Locator locator) {
+        locator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
+        locator.hover();
+    }
+
+    public void waitAndHover(String role, String nameElement) {
+        Locator element =  getBrowserManager().getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement).setExact(true));
+        element.hover();
+    }
+
+    public void waitForSelectorVisible(String selector) {
+        getBrowserManager().getPage().waitForSelector(selector, new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
+    }
+
+    public void waitForSelectorHidden(String selector) {
+        Locator element =  getBrowserManager()
+                .getPage()
+                .locator(selector)
+                .filter(new Locator.FilterOptions().setVisible(true))
+                .first();
+        element.click();
     }
 
     public void waitForTimeOutElement(double timeout) {

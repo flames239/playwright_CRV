@@ -1,4 +1,4 @@
-package step_definitions.jobseekers;
+package step_definitions.jobseekers.Online;
 
 import context.Context;
 import io.cucumber.java.en.And;
@@ -6,8 +6,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.datafaker.Faker;
-import pages.Jobseekers.HomePageJskPage;
-import pages.Jobseekers.RegisterJskPage;
+import pages.Jobseekers.Online.HomePageJskPage;
+import pages.Jobseekers.Online.RegisterJskPage;
 
 public class RegisterJsk_Steps {
     protected final HomePageJskPage homePageJskPage;

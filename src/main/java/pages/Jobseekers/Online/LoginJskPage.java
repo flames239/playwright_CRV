@@ -1,4 +1,4 @@
-package pages.Jobseekers;
+package pages.Jobseekers.Online;
 
 import browser.BrowserManager;
 import pages.base.BasePage;

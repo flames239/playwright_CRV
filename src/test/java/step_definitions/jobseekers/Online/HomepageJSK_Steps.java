@@ -1,11 +1,11 @@
-package step_definitions.jobseekers;
+package step_definitions.jobseekers.Online;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.datafaker.Faker;
-import pages.Jobseekers.HomePageJskPage;
+import pages.Jobseekers.Online.HomePageJskPage;
 
 public class HomepageJSK_Steps {
     private final HomePageJskPage homePageJSK;
@@ -38,7 +38,6 @@ public class HomepageJSK_Steps {
         homePageJSK.clickSearchJobButton();
         homePageJSK.waitForTimeOutElement(2_000);
     }
-
 
     @Then("Hệ thống di chuyển qua page tìm việc làm với dữ liệu jobs hiển thị")
     public void hệ_thống_di_chuyển_qua_page_tìm_việc_làm_với_dữ_liệu_jobs_hiển_thị() {
