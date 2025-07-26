@@ -1,18 +1,19 @@
 package pages.Jobseekers.Online;
 
 import browser.BrowserManager;
+import net.datafaker.Faker;
 import pages.base.BasePage;
 
 import java.util.Random;
 
 public class TestDiscJskPage extends BasePage {
 
+
     public TestDiscJskPage(BrowserManager browserManager) {
         super(browserManager);
     }
 
-    //getByRole('button', { name: 'Tiện Ích' })
-    //getByRole('link', { name: 'Test DISC' })
+    public Faker faker = new Faker();
 
     public void clickMenuTestDisc() {
         waitAndHover("button", "Tiện Ích");
@@ -48,7 +49,6 @@ public class TestDiscJskPage extends BasePage {
 
             // Ấn kết quả
             waitAndClickSelector(mostSelector);
-            waitForTimeOutElement(1_000);
             waitAndClickSelector(leastSelector);
 
             waitForSelectorHidden("//a[@class='next']"); // Ấn "Tiếp Theo" để qua câu tiếp theo
@@ -64,5 +64,27 @@ public class TestDiscJskPage extends BasePage {
         }
     }
 
+    public void inputFullNameRandom() {
+        String fullname = faker.name().fullName();
+        fillField("#fullname", fullname);
+    }
 
+    public void inputPhoneNumberRandom() {
+        String phoneNumber = faker.phoneNumber().cellPhone();
+        fillField("#phone", phoneNumber);
+    }
+
+    public void inputJobPosition(String jobPosition) {
+        fillField("#jobposition", jobPosition);
+    }
+
+    public void tickChkBoxAgreePolicy() {
+        waitAndClickSelector("#hideinfor");
+        waitForTimeOutElement(1_000);
+    }
+
+    public void clickButtonViewResult() {
+        waitAndClickByRole("button", "Kết quả");
+        waitForTimeOutElement(1_000);
+    }
 }
