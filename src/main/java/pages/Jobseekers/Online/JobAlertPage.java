@@ -24,8 +24,13 @@ public class JobAlertPage extends BasePage {
     public void clickIndustry() {
         waitAndClickFirstByRoleInsideSelector("#industryJA_chosen","list");
         waitForTimeOutElement(1_000);
-        int randomNumber = randomNumber(0,10);
-        waitAndClickSelector("//div[@id='industryJA_chosen']//ul[@class='chosen-results']/li[@data-option-array-index='"+ randomNumber +"']");
+        int randomNum;
+        int[] eliminateNumber = {10, 19, 22, 25, 30, 36, 51, 59, 62, 68, 77, 82};
+        do {
+            randomNum = randomNumber(0, 82);
+        } while (isEliminated(randomNum, eliminateNumber));
+
+        waitAndClickSelector("//div[@id='industryJA_chosen']//ul[@class='chosen-results']/li[@data-option-array-index='"+ randomNum +"']");
     }
 
     public void clickLocation() {

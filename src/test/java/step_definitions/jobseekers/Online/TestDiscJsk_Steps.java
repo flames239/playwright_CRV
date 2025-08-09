@@ -3,7 +3,6 @@ package step_definitions.jobseekers.Online;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.datafaker.Faker;
 import pages.Jobseekers.Online.TestDiscJskPage;
 
 public class TestDiscJsk_Steps {
@@ -35,6 +34,11 @@ public class TestDiscJsk_Steps {
 
     }
 
+    @And("tôi nhập email DISC")
+    public void tôi_Nhập_Email_DISC() {
+        testDiscJskPage.fillField("#email","haha@yopmail.com");
+    }
+
     @And("tôi nhập số điện thoại ngẫu nhiên")
     public void tôi_Nhập_Số_Điện_Thoại_Ngẫu_Nhiên() {
         testDiscJskPage.inputPhoneNumberRandom();
@@ -55,4 +59,6 @@ public class TestDiscJsk_Steps {
     public void tôi_Xem_Được_Kết_Quả_DISC() {
         testDiscJskPage.clickButtonViewResult();
     }
+
+
 }

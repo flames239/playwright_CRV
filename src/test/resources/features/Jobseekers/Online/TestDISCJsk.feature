@@ -8,7 +8,7 @@ Feature: Careerviet.vn - làm bài test DISC
     And tôi click button làm bài test
     And tôi làm bài test
     And tôi nhập họ và tên ngẫu nhiên
-    And tôi nhập email ngẫu nhiên
+    And tôi nhập email DISC
     And tôi nhập số điện thoại ngẫu nhiên
     And tôi nhập công việc ngẫu nhiên
     And tôi bấm nút xác nhận

@@ -7,6 +7,8 @@ import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class BasePage {
     private final BrowserManager browserManager;
 
@@ -21,6 +23,13 @@ public class BasePage {
     // truy cập được bởi lớp (class) ở cùng gói (package) hay lớp phụ (sub-class)
     protected BrowserManager getBrowserManager() {
         return browserManager;
+    }
+
+    public void waitAndClickByRoleSetExactTrue(String role, String nameElement) {
+        Locator element = getBrowserManager()
+                .getPage()
+                .getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement).setExact(true));
+        element.click();
     }
 
     public void waitAndClickByRole(String role, String nameElement) {
@@ -60,8 +69,11 @@ public class BasePage {
     }
 
     public void waitAndHover(String role, String nameElement) {
-        Locator element = getBrowserManager().getPage().getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement));
-        element.hover();
+        waitAndHover(
+                getBrowserManager()
+                        .getPage()
+                        .getByRole(AriaRole.valueOf(role.toUpperCase()), new Page.GetByRoleOptions().setName(nameElement))
+        );
     }
 
     public void waitForSelectorVisible(String selector) {
@@ -110,10 +122,54 @@ public class BasePage {
     }
 
     public int randomNumber(int min, int max) {
-        int randomNum = (int) (Math.random() * ((max - min) + 1)) + min;
+        int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         System.out.println("Random number: " + randomNum);
         return randomNum;
     }
 
+    // Phuong thuc check so ngau nhien trong so bi loai
+    public boolean isEliminated(int num, int[] eliminateArray) {
+        for (int eliminated : eliminateArray) {
+            if (eliminated == num) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    // phuong thuc assert URL khi click new Tab
+    public void clickAndAssertUrlNewTab(String selector, String ExpertUrl) {
+        // Chứa page hiện tại
+        Page mainPage = getBrowserManager().getPage();
+
+        // Ấn và đợi new tab
+        Page newPage = getBrowserManager().getPage().waitForPopup(() -> {
+            mainPage.locator(selector).click();
+        });
+
+        // đợi new tab load hoàn toàn
+        newPage.waitForLoadState();
+        mainPage.waitForTimeout(1_000);
+
+        // Assert the URL (Hỗ trợ URL chính xác hoặc tương đối)
+        String actualUrl = newPage.url();
+        if (!actualUrl.equals(ExpertUrl) && !actualUrl.startsWith(ExpertUrl)) {
+            throw new AssertionError("Expected URL: " + ExpertUrl + " but was: " + actualUrl);
+        }
+        newPage.close();
+    }
+
+    // phuong thuc assert URL khi direct tới URL đó không cần close
+    public void clickAndAssertUrl(String selector, String ExpertUrl) {
+        Page mainPage = getBrowserManager().getPage();
+        mainPage.locator(selector).click();
+        mainPage.waitForLoadState();
+
+        // Assert the URL (Hỗ trợ URL chính xác hoặc tương đối)
+        String actualUrl = mainPage.url();
+
+        if (!actualUrl.equals(ExpertUrl)) {
+            throw new AssertionError("Expected URL: " + ExpertUrl + " but was: " + getBrowserManager().getPage().url());
+        }
+    }
 }

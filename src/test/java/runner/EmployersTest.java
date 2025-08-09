@@ -20,12 +20,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/Employers",
         glue = "step_definitions",
-        tags = "@TestDisc",
+        tags = "@HRcentral",
         plugin = {"pretty", "json:target/cucumber.json", "html:target/cucumber-report.html"}
 )
-public class JobseekersTest extends AbstractTestNGCucumberTests {
+public class EmployersTest extends AbstractTestNGCucumberTests {
     private static final Properties properties = new Properties();
     private static final Logger logger = Logger.getLogger(BrowserManager.class.getName());
 
@@ -79,9 +79,9 @@ public class JobseekersTest extends AbstractTestNGCucumberTests {
 
     // Phương thức DataProvider
     // Được dùng cho thực thi test song song, cho phép nhiều test chạy đồng thời
-    @Override
     @DataProvider(parallel = true)
     public Object[][] scenarios() {
         return super.scenarios(); // Cung cấp dữ liệu cho việc test, bật cờ thực thi song song test
     }
+
 }
