@@ -9,7 +9,7 @@ public class LoginJskPage extends BasePage {
     }
 
     public void clickLinkTextLogin (String role, String value) {
-        waitAndClickByRole(role, value);
+        waitAndClickByRole(role, value,true, null);
     }
 
     public void inputEmail (String emailAddress) {

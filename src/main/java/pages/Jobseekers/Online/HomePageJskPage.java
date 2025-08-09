@@ -23,7 +23,7 @@ public class HomePageJskPage extends BasePage {
 
     public void clickSearchJobButton() {
         waitForTimeOutElement(2_000);
-        waitAndClickByRole("BUTTON","TÌM VIỆC NGAY");
+        waitAndClickByRole("BUTTON","TÌM VIỆC NGAY",true, null);
     }
 
     public void verifySearchJob() {

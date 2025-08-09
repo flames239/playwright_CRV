@@ -18,12 +18,12 @@ public class TestDiscJskPage extends BasePage {
     public void clickMenuTestDisc() {
         waitAndHover("button", "Tiện Ích");
         waitForTimeOutElement(1_000);
-        waitAndClickByRole("link", "Test DISC");
+        waitAndClickByRole("link", "Test DISC",true);
         waitForTimeOutElement(1_000);
     }
 
     public void clickBtnTestDisc() {
-        waitAndClickByRoleFirst("link", "Làm bài test ngay");
+        waitAndClickByRole("link", "Làm bài test ngay",true);
         waitForTimeOutElement(1_000);
     }
 
@@ -84,7 +84,7 @@ public class TestDiscJskPage extends BasePage {
     }
 
     public void clickButtonViewResult() {
-        waitAndClickByRole("button", "Kết quả");
+        waitAndClickByRole("button", "Kết quả",true);
         waitForTimeOutElement(1_000);
     }
 }

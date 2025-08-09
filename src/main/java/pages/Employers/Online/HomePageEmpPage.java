@@ -20,8 +20,9 @@ public class HomePageEmpPage extends BasePage {
     }
 
     public void clickPostingServiceSubMenu() {
-        waitAndClickByRoleFirst("link", "Đăng Tuyển Dụng");
+        waitAndClickByRole("link", "Đăng Tuyển Dụng", true, 2);
         waitForTimeOutElement(1_000);
+
     }
 
     public void clickResumeDatabaseSubMenu() {
@@ -32,50 +33,43 @@ public class HomePageEmpPage extends BasePage {
 
     public void clickTalentSolutionSubMenu() {
         hoverElementProductAndService();
-        waitAndClickByRoleFirst("link", "Talent Solution");
+        waitAndClickByRole("link", "Talent Solution");
         waitForTimeOutElement(1_000);
     }
 
     public void clickPostJobSubMenu() {
         hoverElementProductAndService();
-        waitAndClickByRoleFirst("link", "Quảng Cáo Tuyển Dụng");
-        waitForTimeOutElement(1_000);
+        waitAndClickByRole("link", "Quảng Cáo Tuyển Dụng");
     }
 
     public void clickTalentDriverSubMenu() {
         hoverElementProductAndService();
-        waitAndClickByRoleFirst("link", "Talent Driver");
-        waitForTimeOutElement(1_000);
+        waitAndClickByRole("link", "Talent Driver");
     }
 
     public void clickTargetedEmailMarketingSubMenu() {
         hoverElementProductAndService();
-        waitAndClickByRoleFirst("link", "Targeted Email Marketing");
-        waitForTimeOutElement(1_000);
+        waitAndClickByRole("link", "Targeted Email Marketing");
     }
 
     public void clickTalentRefferalSubMenu() {
         hoverElementProductAndService();
         waitAndClickByRole("link", "Talent Referral");
-        waitForTimeOutElement(1_000);
     }
 
     public void clickPostingAndResumeDatabaseInternational() {
         hoverElementProductAndService();
-        waitAndClickByRole("link", "Đăng Tuyển Dụng và Tìm Hồ Sơ Quốc tế");
-        waitForTimeOutElement(1_000);
+        waitAndClickByRole("link", "Đăng Tuyển Dụng và Tìm Hồ Sơ Quốc tế", true);
     }
 
     public void clickViewAllService() {
         hoverElementProductAndService();
-        waitAndClickByRoleFirst("link", "Xem tất cả sản phẩm / dịch vụ");
-        waitForTimeOutElement(1_000);
+        waitAndClickByRole("link", "Xem tất cả sản phẩm / dịch vụ");
     }
 
     public void HoverHRCentralElement() {
         waitAndHover("link", "HR Central");
-        waitForTimeOutElement(1_000);
-
+        waitForElementByRole("link", "HR Central",1_000);
     }
 
     public void ClickDashboardElement() {
@@ -91,7 +85,7 @@ public class HomePageEmpPage extends BasePage {
 
     public void ClickSearchResumeElement() {
         HoverHRCentralElement();
-        waitAndClickByRoleFirst("link", "Tìm Hồ Sơ");
+        waitAndClickSelector("//div[@class='main-menu']//a[@href='https://careerviet.vn/vi/tim-ung-vien.html']");
         waitForTimeOutElement(1_000);
 
         waitAndClickByRole("link", "CNTT - Phần mềm");

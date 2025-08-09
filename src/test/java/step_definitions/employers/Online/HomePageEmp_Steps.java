@@ -41,7 +41,7 @@ public class HomePageEmp_Steps {
 
     @And("tôi click Quảng Cáo Tuyển Dụng")
     public void tôi_Click_Quảng_Cáo_Tuyển_Dụng() {
-        homePageEmpPage.clickPostingServiceSubMenu();
+        homePageEmpPage.clickPostJobSubMenu();
     }
 
     @And("tôi click Talent Driver")
@@ -75,7 +75,6 @@ public class HomePageEmp_Steps {
 
     @When("hover chuột vào menu HRCentral")
     public void hover_Chuột_Vào_Menu_HRCentral() {
-
         homePageEmpPage.HoverHRCentralElement();
     }
 

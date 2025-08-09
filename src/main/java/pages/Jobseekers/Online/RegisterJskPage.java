@@ -9,8 +9,8 @@ public class RegisterJskPage extends BasePage {
     }
 
     public void clickLinkTextRegisterJsk() {
-        waitAndClickByRole("BUTTON","Đăng nhập");
-        waitAndClickByRole("LINK","Đăng ký");
+        waitAndClickByRole("BUTTON","Đăng nhập",true, null);
+        waitAndClickByRole("LINK","Đăng ký",true, null);
     }
 
     public void inputFirstName(String firstName) {

@@ -4,6 +4,7 @@ Feature: Careerviet.vn/employers Homepage cua Employer
   Background: Pre condition
     Given tôi truy cập trang chủ careerviet (NTD)
 
+
   Scenario: truy cập các menu trang chủ CRV Sản Phẩm Và Dịch Vụ (NTD)
     When hover chuột vào menu Sản Phẩm và Dịch Vụ
     And tôi click menu đăng tuyển dụng
@@ -17,7 +18,7 @@ Feature: Careerviet.vn/employers Homepage cua Employer
     And tôi click Xem tất cả sản phẩm, dịch vụ
     Then Truy cập từng link thành công
 
-  @HRcentral
+    @hoso
   Scenario: truy cập các menu trang chủ CRV HRCentral (NTD)
     When hover chuột vào menu HRCentral
     And tôi click menu Dashboad

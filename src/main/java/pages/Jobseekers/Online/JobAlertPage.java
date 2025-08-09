@@ -13,7 +13,7 @@ public class JobAlertPage extends BasePage {
     }
 
     public void clickJobAlert() {
-        waitAndClickByRole("link","Thông Báo Việc Làm");
+        waitAndClickByRole("link","Thông Báo Việc Làm",true);
     }
 
     public void inputJobTitle() {
@@ -65,7 +65,7 @@ public class JobAlertPage extends BasePage {
     }
 
     public void clickBtnReceiveEmail() {
-        waitAndClickByRole("button","Nhận Email");
+        waitAndClickByRole("button","Nhận Email",true);
         waitForTimeOutElement(1_000);
     }
 }
