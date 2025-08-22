@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 @CucumberOptions(
         features = "src/test/resources/features/Employers",
         glue = "step_definitions",
-        tags = "",
+        tags = "@hoso",
         plugin = {"pretty", "json:target/cucumber.json", "html:target/cucumber-report.html"}
 )
 public class EmployersTest extends AbstractTestNGCucumberTests {

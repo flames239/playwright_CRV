@@ -23,7 +23,7 @@ public class TestDiscJskPage extends BasePage {
     }
 
     public void clickBtnTestDisc() {
-        waitAndClickByRole("link", "Làm bài test ngay",true);
+        waitAndClickSelector("//div[@class='action']/a[contains(text(),'Làm bài test ngay')]");
         waitForTimeOutElement(1_000);
     }
 
