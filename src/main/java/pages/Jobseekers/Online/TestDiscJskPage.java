@@ -28,7 +28,10 @@ public class TestDiscJskPage extends BasePage {
     }
 
     public void takeATestDisc() {
+        // chạy vong lặp qua 24 cau hoi
         for (int questionNum = 1; questionNum <= 24; questionNum++) {
+
+            // khai bao bien tra loi cho Most va Least
             int most, least;
             Random random = new Random();
 

@@ -83,8 +83,16 @@ public class BrowserManager {
                                     setArgs(java.util.List.of("--deny-permission-prompts"))));
                     break;
             }
+
+            // ✅ Bo qua SSL certificate errors
+            browserContext.set(browser.get().newContext(
+                    new Browser.NewContextOptions()
+                            .setViewportSize(width, height)
+                            .setIgnoreHTTPSErrors(true) // 👈 This line is the key
+            ));
+
             // browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-            browserContext.set(browser.get().newContext(new Browser.NewContextOptions().setViewportSize(width, height)));
+            // browserContext.set(browser.get().newContext(new Browser.NewContextOptions().setViewportSize(width, height)));
             page.set(browserContext.get().newPage());
 
             // Cài timeouts từ properties files hay dùng giá trị mặc định
