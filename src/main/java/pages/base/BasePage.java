@@ -49,7 +49,6 @@ public class BasePage {
         locator.click();
     }
 
-
     public void waitAndClickSelector(String selector) {
         getBrowserManager().getPage().waitForSelector(selector, new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
         getBrowserManager().getPage().click(selector);

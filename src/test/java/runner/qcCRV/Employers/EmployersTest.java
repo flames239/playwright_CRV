@@ -1,4 +1,4 @@
-package runner.Online.Jobseekers;
+package runner.qcCRV.Employers;
 
 import browser.BrowserManager;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -20,12 +20,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/Employers.qcCRV",
         glue = "step_definitions",
-        tags = "@TestDisc",
+        tags = "@chua-login",
         plugin = {"pretty", "json:target/cucumber.json", "html:target/cucumber-report.html"}
 )
-public class JobseekersTest extends AbstractTestNGCucumberTests {
+public class EmployersTest extends AbstractTestNGCucumberTests {
     private static final Properties properties = new Properties();
     private static final Logger logger = Logger.getLogger(BrowserManager.class.getName());
 
@@ -60,7 +60,7 @@ public class JobseekersTest extends AbstractTestNGCucumberTests {
         // Tao moi TestNG test va them no vao suite
         XmlTest test = new XmlTest(xmlSuite);
         test.setName("Jobseekers Test Suite"); // tạo name cho test suite
-        test.setXmlClasses(Collections.singletonList(new XmlClass(JobseekersTest.class))); // Thêm test class để test
+        test.setXmlClasses(Collections.singletonList(new XmlClass(EmployersTest.class))); // Thêm test class để test
 
         // Vô hiệu quá listeners mặc định  (sẽ vô hiệu TestNG reports cho việc tự sinh)
         testNG.setUseDefaultListeners(false);
@@ -79,9 +79,9 @@ public class JobseekersTest extends AbstractTestNGCucumberTests {
 
     // Phương thức DataProvider
     // Được dùng cho thực thi test song song, cho phép nhiều test chạy đồng thời
-    @Override
     @DataProvider(parallel = true)
     public Object[][] scenarios() {
         return super.scenarios(); // Cung cấp dữ liệu cho việc test, bật cờ thực thi song song test
     }
+
 }
