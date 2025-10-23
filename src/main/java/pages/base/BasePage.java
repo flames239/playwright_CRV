@@ -193,4 +193,8 @@ public class BasePage {
             throw new AssertionError("Expected URL: " + ExpertUrl + " but was: " + getBrowserManager().getPage().url());
         }
     }
+
+    public void waitForNewTabLoading() {
+
+    }
 }

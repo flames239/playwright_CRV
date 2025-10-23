@@ -1,4 +1,4 @@
-@test-suite @TestDisc-qcMOR
+@test-suite-qcMOR @TestDisc-qcMOR
 Feature: Careerviet.vn (qc MOR) - làm bài test DISC
   Background: Pre condition
     Given tôi truy cập vào trang chủ careerviet (qc MOR)

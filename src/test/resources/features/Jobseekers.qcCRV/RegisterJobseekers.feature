@@ -1,4 +1,4 @@
-@test-suite @register-jsk-qcMOR
+@test-suite-qcMOR @register-jsk-qcMOR
 Feature: careerviet.vn qc (MOR) - Kiểm tra chức năng đăng ký bên Jobseekers
 
   Background: Pre condition
