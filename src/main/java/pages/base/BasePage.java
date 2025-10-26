@@ -1,12 +1,15 @@
 package pages.base;
 
 import browser.BrowserManager;
+import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
+import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BasePage {
@@ -194,7 +197,56 @@ public class BasePage {
         }
     }
 
-    public void waitForNewTabLoading() {
+    public Page clickAndSwitchToNewTab(String selector) {
+        Page currentPage = getBrowserManager().getPage();
+        BrowserContext context = currentPage.context();
+        int oldPageCount = context.pages().size();
 
+        // Đợi cho popup (new tab) được mở trước khi click
+        Page newTab = context.waitForPage(() -> {
+            currentPage.click(selector);
+        });
+
+        // Đợi đến khi DOM new page load hoàn toàn
+        newTab.waitForLoadState(LoadState.DOMCONTENTLOADED);
+
+        // Update the BrowserManager's current page to the new tab
+        getBrowserManager().pushPage(newTab);
+
+        return newTab;
     }
+
+    // Xu ly upload file truc tiep tu may tinh
+    public void uploadFile(String selector, String filePath) {
+        getBrowserManager()
+                .getPage()
+                .setInputFiles(selector, Paths.get(filePath));
+    }
+
+    protected void fillIfEmpty(Page page, String selector, String value) {
+        Locator field = page.locator(selector);
+        String currentValue = "";
+        try {
+            currentValue = field.inputValue().trim();
+        } catch (Exception e) {
+            System.out.println("Could not get value for: " + selector + " → " + e.getMessage());
+        }
+
+        // Check if this field needs clearing regardless of its current state
+        boolean shouldAlwaysClear = selector.equals("#firstname") || selector.equals("#email");
+
+        if (shouldAlwaysClear) {
+            System.out.println("Clearing field: " + selector);
+            System.out.println("Resetting field: " + selector);
+            field.clear();
+            field.fill(value);
+            System.out.println("Cleared and filled: " + selector + " → " + value);
+        } else if (currentValue.isEmpty()) {
+            field.fill(value);
+            System.out.println("Filled missing field: " + selector + " → " + value);
+        } else {
+            System.out.println("Field already filled: " + selector + " → " + currentValue);
+        }
+    }
+
 }

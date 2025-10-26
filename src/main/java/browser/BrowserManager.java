@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,9 @@ public class BrowserManager {
 
     public Properties properties;
     private static final Logger logger = Logger.getLogger(BrowserManager.class.getName());
+
+    // Track tab order using a stack
+    private final Deque<Page> pageStack = new ArrayDeque<>();
 
     public BrowserManager() {
         properties = new Properties();
@@ -47,6 +52,14 @@ public class BrowserManager {
     public void setPage(Page newPage) {
         page.set(newPage);
     }
+
+    // --- Tab stack management ---
+    public void pushPage(Page newPage) {
+        pageStack.push(newPage);
+        setPage(newPage);
+    }
+
+
 
     public BrowserContext getBrowserContext() {
         return browserContext.get();

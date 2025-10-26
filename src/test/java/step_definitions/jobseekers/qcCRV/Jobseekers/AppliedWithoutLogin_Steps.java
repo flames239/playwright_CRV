@@ -35,12 +35,12 @@ public class AppliedWithoutLogin_Steps {
 
     @And("tôi toggle off lưu hồ sơ \\(qcMOR)")
     public void tôi_Toggle_Off_Lưu_Hồ_Sơ_QcMOR() {
-
+        appliedWithoutLogin.click_Toggle_Off_Save_Resume_If_Show();
     }
 
     @And("tôi click thử mã captcha mới \\(nếu hiển thị - qcMOR)")
     public void tôi_Click_Thử_Mã_Captcha_Mới_Nếu_Hiển_Thị_QcMOR() {
-
+        appliedWithoutLogin.click_Change_New_Image_Captcha_If_Show();
     }
 
     @And("tôi nhập mã captcha \\(nếu hiển thị - qcMOR)")
