@@ -45,7 +45,7 @@ public class AppliedWithoutLogin_Steps {
 
     @And("tôi nhập mã captcha \\(nếu hiển thị - qcMOR)")
     public void tôi_Nhập_Mã_Captcha_Nếu_Hiển_Thị_QcMOR() {
-
+        appliedWithoutLogin.input_Captcha_If_Show("21412");
     }
 
     @And("tôi click checbox Argee Policy \\(qcMOR)")

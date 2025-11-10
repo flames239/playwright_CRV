@@ -64,23 +64,32 @@ public class AppliedWithoutLoginPage extends BasePage {
     public void click_Change_New_Image_Captcha_If_Show() {
         Locator clickNewCaptchaImage = getBrowserManager().getPage().locator("#trynewcode");
         int i = 0;
-        try {
-            do {
-                if (clickNewCaptchaImage.isVisible()) {
-                    clickNewCaptchaImage.click();
-                    i++;
-                }
-            } while (i < 3);
-
-            System.out.println("Click change new image captcha success");
-        } catch (Exception e) {
-            System.out.println("change new image captcha is not visible");
-        }
+        do {
+            if (clickNewCaptchaImage.isVisible()) {
+                clickNewCaptchaImage.click();
+                i++;
+                System.out.println("Click change new image captcha success");
+            } else {
+                System.out.println("Change new image captcha is not visible");
+            }
+        } while (i < 3);
         waitForTimeOutElement(1_000);
     }
 
+
     public void input_Captcha_If_Show(String captcha) {
         Locator clickNewCaptchaImage = getBrowserManager().getPage().locator("#trynewcode");
+        try {
+            if (clickNewCaptchaImage.isVisible()) {
+                clickNewCaptchaImage.wait(1_000);
+                clickNewCaptchaImage.fill(captcha);
+                System.out.println("Input captcha success");
+            } else {
+                System.out.println("Input captcha is not visible");
+            }
+        } catch (Exception e) {
+            System.out.println("Input captcha is not visible");
+        }
     }
 
     public void click_Button_Submit_Application() {
