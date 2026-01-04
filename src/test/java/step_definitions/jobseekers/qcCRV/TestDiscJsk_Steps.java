@@ -1,4 +1,4 @@
-package step_definitions.jobseekers.qcCRV.Jobseekers;
+package step_definitions.jobseekers.qcCRV;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
