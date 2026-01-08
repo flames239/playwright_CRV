@@ -5,69 +5,70 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.Employers.qcCRV.HomePageEmpPage;
+import pages.Employers.betaCRV.HomePageEmpPage_BetaMOR;
+import pages.Employers.qcCRV.HomePageEmpPage_QcMOR;
 
 public class HomePageEmp_Steps {
 
-    HomePageEmpPage homePageEmpPage;
+    HomePageEmpPage_BetaMOR homePageEmpPage;
 
-    public HomePageEmp_Steps(HomePageEmpPage homePageEmpPage) {
+    public HomePageEmp_Steps(HomePageEmpPage_BetaMOR homePageEmpPage) {
         this.homePageEmpPage = homePageEmpPage;
     }
 
-    @Given("tôi truy cập trang chủ careerviet \\(NTD)")
+    @Given("tôi truy cập trang chủ careerviet \\(NTD) Beta-MOR")
     public void tôi_Truy_Cập_Trang_Chủ_Careerviet_NTD() {
-        homePageEmpPage.navigateToHomePage();
+        homePageEmpPage.navigateToHomePage_BetaMOR();
     }
 
     @When("hover chuột vào menu Sản Phẩm và Dịch Vụ MOR")
     public void hover_Chuột_Vào_Menu_Sản_Phẩm_Và_Dịch_Vụ() {
-        homePageEmpPage.hoverElementProductAndService();
+        homePageEmpPage.hoverElementProductAndService_BetaMOR();
     }
 
     @And("tôi click menu đăng tuyển dụng MOR")
     public void tôi_Click_Menu_Đăng_Tuyển_Dụng() {
-        homePageEmpPage.clickPostingServiceSubMenu();
+        homePageEmpPage.clickPostingServiceSubMenu_BetaMOR();
     }
 
     @And("tôi click menu Tìm Hồ Sơ Ứng Viên MOR")
     public void tôi_Click_Menu_Tìm_Hồ_Sơ_Ứng_Viên() {
-        homePageEmpPage.clickResumeDatabaseSubMenu();
+        homePageEmpPage.clickResumeDatabaseSubMenu_BetaMOR();
     }
 
     @And("tôi click talent solution MOR")
     public void tôi_Click_TalentSolution() {
-        homePageEmpPage.clickTalentSolutionSubMenu();
+        homePageEmpPage.clickTalentSolutionSubMenu_BetaMOR();
     }
 
     @And("tôi click Quảng Cáo Tuyển Dụng MOR")
     public void tôi_Click_Quảng_Cáo_Tuyển_Dụng() {
-        homePageEmpPage.clickPostJobSubMenu();
+        homePageEmpPage.clickPostJobSubMenu_BetaMOR();
     }
 
     @And("tôi click Talent Driver MOR")
     public void tôi_Click_TalentDriver() {
-        homePageEmpPage.clickTalentDriverSubMenu();
+        homePageEmpPage.clickTalentDriverSubMenu_BetaMOR();
     }
 
     @And("tôi click Targeted Email Marketing MOR")
     public void tôi_Click_Targeted_Email_Marketing() {
-        homePageEmpPage.clickTargetedEmailMarketingSubMenu();
+        homePageEmpPage.clickTargetedEmailMarketingSubMenu_BetaMOR();
     }
 
     @And("tôi click Talent Referral MOR")
     public void tôi_Click_Talent_Referral() {
-        homePageEmpPage.clickTalentRefferalSubMenu();
+        homePageEmpPage.clickTalentRefferalSubMenu_BetaMOR();
     }
 
     @And("tôi click Đăng tuyển dụng và Tìm Hồ Sơ Quốc Tế MOR")
     public void tôi_Click_Đăng_Tuyển_Dụng_Và_Tìm_Hồ_Sơ_Quốc_Tế() {
-        homePageEmpPage.clickPostingAndResumeDatabaseInternational();
+        homePageEmpPage.clickPostingAndResumeDatabaseInternational_BetaMOR();
     }
 
     @And("tôi click Xem tất cả sản phẩm, dịch vụ MOR")
     public void tôi_Click_Xem_Tất_Cả_Sản_Phẩm_Dịch_Vụ() {
-        homePageEmpPage.clickViewAllService();
+        homePageEmpPage.clickViewAllService_BetaMOR();
     }
 
     @Then("Truy cập từng link thành công MOR")
@@ -76,17 +77,17 @@ public class HomePageEmp_Steps {
 
     @When("hover chuột vào menu HRCentral MOR")
     public void hover_Chuột_Vào_Menu_HRCentral() {
-        homePageEmpPage.HoverHRCentralElement();
+        homePageEmpPage.HoverHRCentralElement_BetaMOR();
     }
 
     @And("tôi click menu Dashboad MOR")
     public void tôi_Click_Menu_Dashboad() {
-        homePageEmpPage.ClickDashboardElement();
+        homePageEmpPage.ClickDashboardElement_BetaMOR();
     }
 
     @And("tôi click menu Đăng Tuyển Dụng MOR")
     public void tôi_Click_Menu_Đăng_Tuyển_Dụng_1() {
-        homePageEmpPage.ClickPostJobElement();
+        homePageEmpPage.ClickPostJobElement_BetaMOR();
     }
 
     @Then("tôi truy cập được các mục category trong page Cẩm nang tuyển dụng")

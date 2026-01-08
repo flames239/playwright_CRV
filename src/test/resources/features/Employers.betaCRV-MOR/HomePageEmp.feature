@@ -2,7 +2,7 @@
 Feature: Homepage cua Employer
 
   Background: Pre condition
-    Given tôi truy cập trang chủ careerviet (NTD)
+    Given tôi truy cập trang chủ careerviet (NTD) Beta-MOR
 
   # chưa chay duoc scenario nay do chua hien thi cac product tren FE
   Scenario: truy cập các menu trang chủ CRV Sản Phẩm Và Dịch Vụ (NTD)

@@ -4,14 +4,14 @@ import browser.BrowserManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.Employers.betaCRV.BlogHiringSitePage;
+import pages.Employers.betaCRV.BlogHiringSitePage_BetaMOR;
 
 public class BlogHiringSite_Steps {
 
-    BlogHiringSitePage blogHiringSitePage;
+    BlogHiringSitePage_BetaMOR blogHiringSitePage;
 
     public BlogHiringSite_Steps(BrowserManager browserManager) {
-        this.blogHiringSitePage = new BlogHiringSitePage(browserManager);
+        this.blogHiringSitePage = new BlogHiringSitePage_BetaMOR(browserManager);
     }
 
 

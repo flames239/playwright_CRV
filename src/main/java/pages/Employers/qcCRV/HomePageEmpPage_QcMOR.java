@@ -3,84 +3,84 @@ package pages.Employers.qcCRV;
 import browser.BrowserManager;
 import pages.base.BasePage;
 
-public class HomePageEmpPage extends BasePage {
+public class HomePageEmpPage_QcMOR extends BasePage {
 
-    public HomePageEmpPage(BrowserManager browserManager) {
+    public HomePageEmpPage_QcMOR(BrowserManager browserManager) {
         super(browserManager);
     }
 
-    public void navigateToHomePage() {
+    public void navigateToHomePage_QcMOR() {
         navigate("https://qccrv.dev/vi/employers");
         waitForTimeOutElement(1_000);
         getBrowserManager().getPage().pause();
     }
 
-    public void hoverElementProductAndService() {
+    public void hoverElementProductAndService_QcMOR() {
 
         waitAndHover("link", "Sản Phẩm và Dịch Vụ");
         waitForTimeOutElement(1_000);
     }
 
-    public void clickPostingServiceSubMenu() {
+    public void clickPostingServiceSubMenu_QcMOR() {
         waitAndClickByRole("link", "Đăng Tuyển Dụng", true, 2);
         waitForTimeOutElement(1_000);
 
     }
 
-    public void clickResumeDatabaseSubMenu() {
-        hoverElementProductAndService();
+    public void clickResumeDatabaseSubMenu_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Tìm Hồ Sơ Ứng Viên");
         waitForTimeOutElement(1_000);
     }
 
-    public void clickTalentSolutionSubMenu() {
-        hoverElementProductAndService();
+    public void clickTalentSolutionSubMenu_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Talent Solution");
         waitForTimeOutElement(1_000);
     }
 
-    public void clickPostJobSubMenu() {
-        hoverElementProductAndService();
+    public void clickPostJobSubMenu_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Quảng Cáo Tuyển Dụng");
     }
 
-    public void clickTalentDriverSubMenu() {
-        hoverElementProductAndService();
+    public void clickTalentDriverSubMenu_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Talent Driver");
     }
 
-    public void clickTargetedEmailMarketingSubMenu() {
-        hoverElementProductAndService();
+    public void clickTargetedEmailMarketingSubMenu_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Targeted Email Marketing");
     }
 
-    public void clickTalentRefferalSubMenu() {
-        hoverElementProductAndService();
+    public void clickTalentRefferalSubMenu_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Talent Referral");
     }
 
-    public void clickPostingAndResumeDatabaseInternational() {
-        hoverElementProductAndService();
+    public void clickPostingAndResumeDatabaseInternational_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Đăng Tuyển Dụng và Tìm Hồ Sơ Quốc tế", true);
     }
 
-    public void clickViewAllService() {
-        hoverElementProductAndService();
+    public void clickViewAllService_QcMOR() {
+        hoverElementProductAndService_QcMOR();
         waitAndClickByRole("link", "Xem tất cả sản phẩm / dịch vụ");
     }
 
-    public void HoverHRCentralElement() {
+    public void HoverHRCentralElement_QcMOR() {
         waitAndHover("link", "HR Central");
         waitForElementByRole("link", "HR Central",1_000);
     }
 
-    public void ClickDashboardElement() {
+    public void ClickDashboardElement_QcMOR() {
         clickAndAssertUrl("(//a[@href=\"/vi/employers/postjobs\"])[1]","https://qccrv.dev/vi/employers/login");
         waitForTimeOutElement(1_000);
     }
 
-    public void ClickPostJobElement() {
-        HoverHRCentralElement();
+    public void ClickPostJobElement_QcMOR() {
+        HoverHRCentralElement_QcMOR();
         clickAndAssertUrl("(//div[@class='left-wrap']//a[contains(text(),'Đăng Tuyển Dụng')])[3]","https://qccrv.dev/vi/employers/login");
         waitForTimeOutElement(1_000);
     }

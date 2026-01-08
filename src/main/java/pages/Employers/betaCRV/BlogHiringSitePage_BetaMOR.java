@@ -6,12 +6,9 @@ import com.microsoft.playwright.Page;
 import org.testng.Assert;
 import pages.base.BasePage;
 
-import java.util.ArrayList;
-import java.util.List;
+public class BlogHiringSitePage_BetaMOR extends BasePage {
 
-public class BlogHiringSitePage extends BasePage {
-
-    public BlogHiringSitePage(BrowserManager browserManager) {
+    public BlogHiringSitePage_BetaMOR(BrowserManager browserManager) {
         super(browserManager);
     }
 
@@ -33,7 +30,7 @@ public class BlogHiringSitePage extends BasePage {
 
         // field data vào ô search
         waitForSelectorVisible("//div[@class='show-hide']");
-        fillField("name=keynews", keyword);
+        fillField("//input[@name='keynews']", keyword);
         waitForTimeOutElement(1_000);
     }
     public void ClickButtonSearchBlog() {
